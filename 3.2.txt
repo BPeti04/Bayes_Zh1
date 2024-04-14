@@ -1,0 +1,20 @@
+var model = function() {
+    var X = randomInteger(4); // X egyenletesen eloszlik {0, 1, 2, 3} között
+    var Y = randomInteger(4); // Y egyenletesen eloszlik {0, 1, 2, 3} között
+    var Z = randomInteger(4); // Z egyenletesen eloszlik {0, 1, 2, 3} között
+    
+    var W = X + Y + Z; // W értéke X, Y és Z összege
+    
+    // Ha W értéke 7
+    condition(W === 7);
+    
+    // Visszaadjuk az X értékét
+    return X;
+};
+
+// Enumerate() segítségével kiszámoljuk az X eloszlását, feltéve, hogy W = 7
+var distribution = Infer({method: 'enumerate'}, model);
+
+// Kiírjuk az eloszlást
+viz.auto(distribution);
+viz.table(distribution);
