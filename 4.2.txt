@@ -1,0 +1,63 @@
+var data = [{k: 5},
+            {k: 16},
+            {k: 17},
+           ]
+
+var simpleModel = function() {
+  
+  var m = uniform(4,18);
+   
+  map(function(d){observe(Gaussian({mu: m, sigma: 1}),d.k)},data);
+  
+  var Prior = uniform(4,18);
+  
+  var PredictivePosterior = gaussian(m,1);
+  
+  return {
+          Prior: Prior, 
+          Posterior: m,
+          PosteriorPredictive: PredictivePosterior
+   
+
+      };
+}
+
+var opts = {method: 'SMC', particles: 2000, rejuvSteps: 5}
+
+var output_1 = Infer(opts, simpleModel)
+
+viz.marginals(output_1)
+
+
+
+
+var data = [{k: 28},
+            {k: 31},
+            {k: 44},
+            {k: 29},
+           ]
+
+var simpleModel = function() {
+  
+  var m = uniform(4,30);
+   
+  map(function(d){observe(Gaussian({mu: m, sigma: 1}),d.k)},data);
+  
+  var Prior = uniform(4,30);
+  
+  var PredictivePosterior = gaussian(m,1);
+  
+  return {
+          Prior: Prior, 
+          Posterior: m,
+          PosteriorPredictive: PredictivePosterior
+   
+
+      };
+}
+
+var opts = {method: 'SMC', particles: 2000, rejuvSteps: 5}
+
+var output_1 = Infer(opts, simpleModel)
+
+viz.marginals(output_1)
