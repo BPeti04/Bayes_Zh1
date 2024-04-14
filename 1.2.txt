@@ -1,1 +1,19 @@
+var feature1 = ['könyvtáros','tanár'];
+var feature2 = ['csendes','cserfes'];
+var operator = [' és ',' vagy '];
+var operatorProbabilities = [0.95 , 0.2];
 
+var SimpleModel = function() {
+    var word1 = uniformDraw(feature1)
+    var op = sample(Categorical({ps: operatorProbabilities, vs: operator }));
+  
+    var word2  =  (word1 == 'könyvtáros') ? 'csendes' : 'cserfes'
+    print('Premissza: Anna ' + word1 + op + word2 + '.'); 
+    print('Konklúzió: Anna ' + word2 + '.'); 
+    var ervenyes =  (op == ' és ') ? 'érvényes' : 'nem érvényes'
+    print(ervenyes); 
+    return ervenyes
+}
+
+var output = 
+  Infer({model: SimpleModel, method:'rejection', samples: 1})
