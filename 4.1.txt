@@ -1,3 +1,4 @@
+a
 var kartya = function () {
   var szin1 = randomInteger(4) + 1;
   var figura1 = randomInteger(4) + 1;
@@ -22,3 +23,26 @@ viz.hist(eloszlas)
 var Z = Infer({method: 'enumerate', model: kartya})
 
 viz.table(Z)
+
+
+b
+// Függvény az A esemény valószínűségének kiszámításához
+var calculatePA = function() {
+  var PA = 1 - (3/16 * 3/15);
+  return PA;
+};
+
+// Feltételes valószínűség kiszámítása
+var conditionalProbability = function() {
+  var treff_kiraly_vagy_asz = 2; // Van 2 treff király vagy treff ász
+  var pikk_dama = 1; // Csak 1 pikk dáma van
+  
+  var PX_given_Y = treff_kiraly_vagy_asz / pikk_dama;
+  
+  var PA = calculatePA();
+  
+  return PX_given_Y / PA;
+};
+
+
+print(conditionalProbability());
