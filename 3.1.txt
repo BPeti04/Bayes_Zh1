@@ -1,1 +1,11 @@
-
+var Model = function() {
+  var AllCards = 52;
+  var KingCards = 4;
+  var ElseCards = AllCards - KingCards;
+  var KingThenElse = (KingCards / AllCards) * (ElseCards / (AllCards -1));
+  var ElseThenKing = (ElseCards / AllCards) * (KingCards / (AllCards -1));
+  var P = (KingThenElse + ElseThenKing);
+  
+  return P;
+};
+print(Model().toFixed(4));
