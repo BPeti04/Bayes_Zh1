@@ -1,1 +1,38 @@
+var model0 = function() {
+  var ace = flip();
+  var king = flip();
+  
+  condition (ace,king);
+  return [ace,king];
+  
+  return {
+    ace: ace,
+    king: king,
+    total: total,
+  };
+};
 
+
+var distribution = Infer({model: model0, method: 'enumerate'});
+viz.auto(distribution);
+var model1 = function() {
+  var ace = flip();
+  var king = flip();
+                        
+  var total = [ace,king]
+  var inclusive_or = ace || king;
+  var and = ace && king;
+  var exclusive_or = (ace && !king) || (!ace && king);
+
+  return {
+    ace: ace,
+    king: king,
+    total: total,
+    inclusive_or: inclusive_or,
+    and: and,
+    exclusive_or: exclusive_or,
+  };
+};
+var distribution = Infer({model: model1, method: 'enumerate'});
+viz.table(distribution);
+viz.marginals(distribution);
