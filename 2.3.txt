@@ -1,0 +1,8 @@
+Lemma problem_3 : forall A B : Prop, (A \/ ~A) -> ((A -> B) -> A) -> A.
+Proof.
+intros A B H1 H2.
+destruct H1 as [HA | HNA].
+assumption.
+apply H2.
+intro HA.
+contradiction.
