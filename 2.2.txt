@@ -1,1 +1,3 @@
-
+Lemma problem_2: forall A B C: Prop, ((B -> A) /\ (C -> A)) ->((B\/C ->A)).
+Proof.
+firstorder.
