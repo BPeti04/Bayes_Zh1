@@ -1,1 +1,66 @@
+var dobás = function () {
+  var kocka1 = (categorical({ps: [1/6, 1/6, 1/6, 1/6, 1/6, 1/6], 
+                             vs: [1, 2, 3, 4, 5, 6]}));
+  var kocka2 = (categorical({ps: [1/6, 1/6, 1/6, 1/6, 1/6, 1/6], 
+                             vs: [1, 2, 3, 4, 5, 6]}));
+  return kocka1 + kocka2; 
+};
+
+var inferencia = Infer({model: dobás, method: 'enumerate'});
+
+var valószínűség = expectation(inferencia, function(összeg) {
+  return összeg >= 4 ? 1 : 0;
+});
+
+
+var dobás = function () {
+  var kocka1 = categorical({ps: [1/6, 1/6, 1/6, 1/6, 1/6, 1/6], 
+                            vs: [1, 2, 3, 4, 5, 6]});
+  var kocka2 = categorical({ps: [1/6, 1/6, 1/6, 1/6, 1/6, 1/6], 
+                            vs: [1, 2, 3, 4, 5, 6]});
+  return [kocka1,kocka2];
+}
+var kedvező_dobás = function () {
+  var kocka1 = categorical({ps: [1/6, 1/6, 1/6, 1/6, 1/6, 1/6], 
+                            vs: [1, 2, 3, 4, 5, 6]});
+  var kocka2 = categorical({ps: [1/6, 1/6, 1/6, 1/6, 1/6, 1/6], 
+                            vs: [1, 2, 3, 4, 5, 6]});
+  condition(kocka1 + kocka2 >= 4);
+  return [kocka1,kocka2];
+}
+var kedvezőtlen_dobás = function () {
+  var kocka1 = categorical({ps: [1/6, 1/6, 1/6, 1/6, 1/6, 1/6], 
+                            vs: [1, 2, 3, 4, 5, 6]});
+  var kocka2 = categorical({ps: [1/6, 1/6, 1/6, 1/6, 1/6, 1/6], 
+                            vs: [1, 2, 3, 4, 5, 6]});
+  condition(kocka1 + kocka2 < 4);
+  return [kocka1,kocka2];
+}
+
+var összes = Infer({method: 'enumerate'}, dobás);
+var kedvező = Infer({method: 'enumerate'}, kedvező_dobás);
+var kedvezőtlen = Infer({method: 'enumerate'}, kedvezőtlen_dobás);
+
+
+print('Sample set')
+viz.auto(összes);
+
+print('Optimal cases')
+viz.auto(kedvező);
+
+print('Optimal cases:')
+viz.table(kedvező)
+      
+print('Non-optimal cases:')
+viz.table(kedvezőtlen)
+
+
+
+var sokdobás = repeat(1000, dobás); 
+print('Example:Probabilities at 1000 roll:');
+viz.heatMap(sokdobás);
+viz.auto(sokdobás);
+viz.table(sokdobás);
+viz.hist(sokdobás);
+
 
